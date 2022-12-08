@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/nmsn/release-toolbox#readme",
   "dependencies": {
-    "semver": "^7.3.8"
+    "semver": "^7.3.8",
+    "shelljs": "^0.8.5"
   }
 }
