@@ -12,17 +12,19 @@ const getPackageVersion = () => {
   return JSON.parse(packageJson).version;
 };
 
-export const writeNewVersion = (type) => {
+// TODO gui to select version
+export const writeNewVersion = (semverType, callback) => {
   const packageJson = getPackageJson();
   const projectVersion = getPackageVersion();
 
-  const newVersion = semver.inc(projectVersion, type);
+  const newVersion = semver.inc(projectVersion, semverType);
 
   const newPackageJson = packageJson.replace(
     `"version": "${projectVersion}"`,
     `"version": "${newVersion}"`
   );
   fs.writeFileSync(path.resolve(process.cwd(), "package.json"), newPackageJson);
+  callback?.(newVersion);
 };
 
 const getGitScript = ({ version, branch }) => [
@@ -45,17 +47,12 @@ const execShell = async (scriptArr) => {
   }
 };
 
-const script = (type) => {
-  writeNewVersion(type);
+const script = (type, branch = "main") => {
+  writeNewVersion(type, (version) => {
+    const allScript = [...getGitScript({ version, branch }), ...getNpmScript()];
 
-  const version = getPackageVersion();
-
-  const mixScript = [
-    ...getGitScript({ version, branch: "test" }),
-    ...getNpmScript(),
-  ];
-
-  execShell(mixScript);
+    execShell(allScript);
+  });
 };
 
 export default script;
