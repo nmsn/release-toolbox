@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-const inquirer = require('inquirer');
+import script from "../index.js";
 
-const prompts = [];
+script();

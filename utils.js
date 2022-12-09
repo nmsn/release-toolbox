@@ -5,8 +5,12 @@ import { writeNewVersion } from "./version.js";
 import { getGitScript } from "./git.js";
 import { getNpmScript } from "./npm.js";
 
-const execShell = async (scriptArr) => {
-  for (let script of scriptArr) {
+export const addDimSuffix = (base, suffix) => {
+  return `${base} 	${chalk.dim.cyan(suffix)}`;
+};
+
+const execShell = async (scripts) => {
+  for (let script of scripts) {
     try {
       await shell.exec(script);
     } catch (e) {
@@ -15,16 +19,10 @@ const execShell = async (scriptArr) => {
   }
 };
 
-export const addDimSuffix = (base, suffix) => {
-  return `${base} 	${chalk.dim.cyan(suffix)}`;
-};
-
-const script = (type, branch = "main") => {
+export const script = (type, branch = "main") => {
   writeNewVersion(type, (version) => {
     const allScript = [...getGitScript(version, branch), ...getNpmScript()];
 
     execShell(allScript);
   });
 };
-
-export default script;

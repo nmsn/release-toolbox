@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { version, getNewPackageVersion } from "./version.js";
-import { addDimSuffix } from "./utils.js";
+import { addDimSuffix, script } from "./utils.js";
 import { getGitBranchList } from "./git.js";
 
 const { branchList, curBranch } = getGitBranchList();
@@ -22,12 +22,13 @@ const prompts = [
     message: "Select git local branch",
     pageSize: branchList.length,
     choices: branchList.map((inc) => ({
-      name: inc === curBranch ? addDimSuffix(inc, 'current') : inc,
+      name: inc === curBranch ? addDimSuffix(inc, "current") : inc,
       value: inc,
     })),
   },
 ];
 
-export const ui = async () => {
-  return await inquirer.prompt(prompts);
+export default async () => {
+  const { version, branch } = await inquirer.prompt(prompts);
+  script(version, branch);
 };
