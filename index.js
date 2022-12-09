@@ -32,3 +32,6 @@ export default async () => {
   const { version, branch } = await inquirer.prompt(prompts);
   script(version, branch);
 };
+
+
+// test
