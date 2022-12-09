@@ -1,2 +1,2 @@
 // Just for no Two-Factor Authentication
-const getNpmScript = () => ["npm publish"];
+export const getNpmScript = () => ["npm publish"];

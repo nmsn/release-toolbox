@@ -1,4 +1,5 @@
 import shell from "shelljs";
+import chalk from "chalk";
 
 import { writeNewVersion } from "./version.js";
 import { getGitScript } from "./git.js";
@@ -14,9 +15,13 @@ const execShell = async (scriptArr) => {
   }
 };
 
+export const addDimSuffix = (base, suffix) => {
+  return `${base} 	${chalk.dim.cyan(suffix)}`;
+};
+
 const script = (type, branch = "main") => {
   writeNewVersion(type, (version) => {
-    const allScript = [...getGitScript({ version, branch }), ...getNpmScript()];
+    const allScript = [...getGitScript(version, branch), ...getNpmScript()];
 
     execShell(allScript);
   });
