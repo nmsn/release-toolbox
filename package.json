@@ -1,6 +1,6 @@
 {
   "name": "release-toolbox",
-  "version": "null",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "type": "module",
