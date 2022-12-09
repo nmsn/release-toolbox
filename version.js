@@ -21,12 +21,17 @@ export const getPackageVersion = () => {
   return JSON.parse(packageJson).version;
 };
 
+export const getNewPackageVersion = (semverType) => {
+  const projectVersion = getPackageVersion();
+  return semver.inc(projectVersion, semverType);
+};
+
 // TODO gui to select version
 export const writeNewVersion = (semverType, callback) => {
   const packageJson = getPackageJson();
   const projectVersion = getPackageVersion();
 
-  const newVersion = semver.inc(projectVersion, semverType);
+  const newVersion = getNewPackageVersion(projectVersion, semverType);
 
   const newPackageJson = packageJson.replace(
     `"version": "${projectVersion}"`,

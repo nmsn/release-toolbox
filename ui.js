@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
-import version from "./version";
+import { version, getNewPackageVersion } from "./version.js";
+import chalk from "chalk";
 
 const prompts = [
   {
@@ -8,7 +9,7 @@ const prompts = [
     message: "Select semver increment or specify new version",
     pageSize: version.length,
     choices: version.map((inc) => ({
-      name: `${inc} 	${prettyVersionDiff(oldVersion, inc)}`,
+      name: `${inc} 	${chalk.dim.cyan(getNewPackageVersion(inc))}`,
       value: inc,
     })),
   },

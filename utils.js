@@ -1,8 +1,8 @@
 import shell from "shelljs";
 
-import { writeNewVersion } from "./version";
-import { getGitScript } from "./git";
-import { getNpmScript } from "./npm";
+import { writeNewVersion } from "./version.js";
+import { getGitScript } from "./git.js";
+import { getNpmScript } from "./npm.js";
 
 const execShell = async (scriptArr) => {
   for (let script of scriptArr) {
