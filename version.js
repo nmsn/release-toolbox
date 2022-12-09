@@ -30,9 +30,7 @@ export const getNewPackageVersion = (semverType) => {
 export const writeNewVersion = (semverType, callback) => {
   const packageJson = getPackageJson();
   const projectVersion = getPackageVersion();
-
-  const newVersion = getNewPackageVersion(projectVersion, semverType);
-
+  const newVersion = getNewPackageVersion(semverType);
   const newPackageJson = packageJson.replace(
     `"version": "${projectVersion}"`,
     `"version": "${newVersion}"`
