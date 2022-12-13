@@ -1,15 +1,15 @@
 import shell from "shelljs";
 import chalk from "chalk";
 
-import { writeNewVersion } from "./version.js";
-import { getGitScript } from "./git.js";
-import { getNpmScript } from "./npm.js";
+import { writeNewVersion } from "./version";
+import { getGitScript } from "./git";
+import { getNpmScript } from "./npm";
 
-export const addDimSuffix = (base, suffix) => {
+export const addDimSuffix = (base: string, suffix: string) => {
   return `${base} 	${chalk.dim.cyan(suffix)}`;
 };
 
-const execShell = async (scripts) => {
+const execShell = async (scripts: string[]) => {
   for (let script of scripts) {
     try {
       await shell.exec(script);
@@ -19,7 +19,7 @@ const execShell = async (scripts) => {
   }
 };
 
-export const script = (newVersion, branch = "main") => {
+export const script = (newVersion: string, branch = "main") => {
   writeNewVersion(newVersion, (version) => {
     const allScript = [...getGitScript(version, branch), ...getNpmScript()];
 

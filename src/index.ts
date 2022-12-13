@@ -5,13 +5,19 @@ import {
   getNewPackageVersion,
   isValidVersion,
   isBeforeOrSameVersion,
-} from "./version.js";
-import { addDimSuffix, script } from "./utils.js";
-import { getGitBranchList } from "./git.js";
+} from "./version";
+import { addDimSuffix, script } from "./utils";
+import { getGitBranchList } from "./git";
 
 const { branchList, curBranch } = getGitBranchList();
 
 const curVersion = getPackageVersion();
+
+type AnswersType = {
+  selectedVersion: string;
+  inputVersion: string;
+  branch: string;
+};
 
 const prompts = [
   {
@@ -25,23 +31,23 @@ const prompts = [
         value: type,
       }))
       .concat([
-        new inquirer.Separator(),
+        new inquirer.Separator() as any,
         {
           name: "Other (specify)",
           value: undefined,
         },
       ]),
-    filter: (type) =>
+    filter: (type: string) =>
       isValidVersion(type) ? getNewPackageVersion(type) : type,
   },
   {
     type: "input",
     name: "inputVersion",
     message: "Version",
-    when: (answers) => !answers.selectedVersion,
-    filter: (input) =>
+    when: (answers: AnswersType) => !answers.selectedVersion,
+    filter: (input: string) =>
       isValidVersion(input) ? getNewPackageVersion(input) : input,
-    validate: (input) => {
+    validate: (input: string) => {
       if (!isValidVersion(input)) {
         return "Please specify a valid semver, for example, `1.2.3`. See https://semver.org";
       }

@@ -32,7 +32,10 @@ export const getNewPackageVersion = (input) => {
 };
 
 // TODO gui to select version
-export const writeNewVersion = (newVersion, callback) => {
+export const writeNewVersion = (
+  newVersion: string,
+  callback?: (newVersion: string) => void
+) => {
   const packageJson = getPackageJson();
   const projectVersion = getPackageVersion();
 
@@ -45,16 +48,19 @@ export const writeNewVersion = (newVersion, callback) => {
   callback?.(newVersion);
 };
 
-export const isValidVersion = (input) => {
+export const isValidVersion = (input: string) => {
   return !!semver.valid(input) || version.includes(input);
 };
 
-const validate = (input) => {
+const validate = (input: string) => {
   if (!isValidVersion(input)) {
     throw new Error("Version should be a valid semver version.");
   }
 };
 
-export const isBeforeOrSameVersion = (newVersion, oldVersion) => {
+export const isBeforeOrSameVersion = (
+  newVersion: string,
+  oldVersion: string
+) => {
   return semver.lte(newVersion, oldVersion);
 };
