@@ -70,7 +70,5 @@ export default async () => {
     prompts
   );
   const version = selectedVersion ?? inputVersion;
-  console.log(version, branch);
-  return;
   script(version, branch);
 };
