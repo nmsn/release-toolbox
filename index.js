@@ -16,6 +16,7 @@ const prompts = [
       value: inc,
     })),
   },
+  // TODO input version
   {
     type: "list",
     name: "branch",
