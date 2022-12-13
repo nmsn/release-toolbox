@@ -21,20 +21,40 @@ export const getPackageVersion = () => {
   return JSON.parse(packageJson).version;
 };
 
-export const getNewPackageVersion = (semverType) => {
-  const projectVersion = getPackageVersion();
-  return semver.inc(projectVersion, semverType);
+export const getNewPackageVersion = (input) => {
+  validate(input);
+  if (version.includes(input)) {
+    const projectVersion = getPackageVersion();
+    return semver.inc(projectVersion, input);
+  }
+
+  return input;
 };
 
 // TODO gui to select version
-export const writeNewVersion = (semverType, callback) => {
+export const writeNewVersion = (newVersion, callback) => {
   const packageJson = getPackageJson();
   const projectVersion = getPackageVersion();
-  const newVersion = getNewPackageVersion(semverType);
+
   const newPackageJson = packageJson.replace(
     `"version": "${projectVersion}"`,
     `"version": "${newVersion}"`
   );
+
   fs.writeFileSync(path.resolve(process.cwd(), "package.json"), newPackageJson);
   callback?.(newVersion);
+};
+
+export const isValidVersion = (input) => {
+  return !!semver.valid(input) || version.includes(input);
+};
+
+const validate = (input) => {
+  if (!isValidVersion(input)) {
+    throw new Error("Version should be a valid semver version.");
+  }
+};
+
+export const isBeforeOrSameVersion = (newVersion, oldVersion) => {
+  return semver.lte(newVersion, oldVersion);
 };

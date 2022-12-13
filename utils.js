@@ -19,8 +19,8 @@ const execShell = async (scripts) => {
   }
 };
 
-export const script = (type, branch = "main") => {
-  writeNewVersion(type, (version) => {
+export const script = (newVersion, branch = "main") => {
+  writeNewVersion(newVersion, (version) => {
     const allScript = [...getGitScript(version, branch), ...getNpmScript()];
 
     execShell(allScript);

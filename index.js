@@ -1,22 +1,58 @@
 import inquirer from "inquirer";
-import { version, getNewPackageVersion } from "./version.js";
+import {
+  version,
+  getPackageVersion,
+  getNewPackageVersion,
+  isValidVersion,
+  isBeforeOrSameVersion,
+} from "./version.js";
 import { addDimSuffix, script } from "./utils.js";
 import { getGitBranchList } from "./git.js";
 
 const { branchList, curBranch } = getGitBranchList();
 
+const curVersion = getPackageVersion();
+
 const prompts = [
   {
     type: "list",
-    name: "version",
+    name: "selectedVersion",
     message: "Select semver increment or specify new version",
-    pageSize: version.length,
-    choices: version.map((inc) => ({
-      name: addDimSuffix(inc, getNewPackageVersion(inc)),
-      value: inc,
-    })),
+    pageSize: version.length + 2,
+    choices: version
+      .map((type) => ({
+        name: addDimSuffix(type, getNewPackageVersion(type)),
+        value: type,
+      }))
+      .concat([
+        new inquirer.Separator(),
+        {
+          name: "Other (specify)",
+          value: undefined,
+        },
+      ]),
+    filter: (type) =>
+      isValidVersion(type) ? getNewPackageVersion(type) : type,
   },
-  // TODO input version
+  {
+    type: "input",
+    name: "inputVersion",
+    message: "Version",
+    when: (answers) => !answers.selectedVersion,
+    filter: (input) =>
+      isValidVersion(input) ? getNewPackageVersion(input) : input,
+    validate: (input) => {
+      if (!isValidVersion(input)) {
+        return "Please specify a valid semver, for example, `1.2.3`. See https://semver.org";
+      }
+
+      if (isBeforeOrSameVersion(input, curVersion)) {
+        return `Version must be greater than ${curVersion}`;
+      }
+
+      return true;
+    },
+  },
   {
     type: "list",
     name: "branch",
@@ -30,6 +66,11 @@ const prompts = [
 ];
 
 export default async () => {
-  const { version, branch } = await inquirer.prompt(prompts);
+  const { selectedVersion, branch, inputVersion } = await inquirer.prompt(
+    prompts
+  );
+  const version = selectedVersion ?? inputVersion;
+  console.log(version, branch);
+  return;
   script(version, branch);
 };
