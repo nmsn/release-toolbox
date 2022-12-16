@@ -1,19 +1,19 @@
-import fs from "fs";
-import path from "path";
-import semver from "semver";
+import fs from 'fs';
+import path from 'path';
+import semver from 'semver';
 
 export const version = [
-  "patch",
-  "minor",
-  "major",
-  "prepatch",
-  "preminor",
-  "premajor",
-  "prerelease",
+  'patch',
+  'minor',
+  'major',
+  'prepatch',
+  'preminor',
+  'premajor',
+  'prerelease',
 ];
 
 export const getPackageJson = () => {
-  return fs.readFileSync(path.resolve(process.cwd(), "package.json"), "utf8");
+  return fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8');
 };
 
 export const getPackageVersion = () => {
@@ -32,10 +32,7 @@ export const getNewPackageVersion = (input) => {
 };
 
 // TODO gui to select version
-export const writeNewVersion = (
-  newVersion: string,
-  callback?: (newVersion: string) => void
-) => {
+export const writeNewVersion = (newVersion: string, callback?: (newVersion: string) => void) => {
   const packageJson = getPackageJson();
   const projectVersion = getPackageVersion();
 
@@ -44,7 +41,7 @@ export const writeNewVersion = (
     `"version": "${newVersion}"`
   );
 
-  fs.writeFileSync(path.resolve(process.cwd(), "package.json"), newPackageJson);
+  fs.writeFileSync(path.resolve(process.cwd(), 'package.json'), newPackageJson);
   callback?.(newVersion);
 };
 
@@ -54,13 +51,10 @@ export const isValidVersion = (input: string) => {
 
 const validate = (input: string) => {
   if (!isValidVersion(input)) {
-    throw new Error("Version should be a valid semver version.");
+    throw new Error('Version should be a valid semver version.');
   }
 };
 
-export const isBeforeOrSameVersion = (
-  newVersion: string,
-  oldVersion: string
-) => {
+export const isBeforeOrSameVersion = (newVersion: string, oldVersion: string) => {
   return semver.lte(newVersion, oldVersion);
 };

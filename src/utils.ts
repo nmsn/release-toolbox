@@ -10,7 +10,7 @@ export const addDimSuffix = (base: string, suffix: string) => {
 };
 
 const execShell = async (scripts: string[]) => {
-  for (let script of scripts) {
+  for (const script of scripts) {
     try {
       await shell.exec(script);
     } catch (e) {
