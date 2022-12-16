@@ -2,6 +2,7 @@
   "name": "release-toolbox",
   "version": "0.0.3",
   "description": "",
+  "type": "module",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "sideEffects": false,
@@ -16,10 +17,10 @@
   },
   "scripts": {
     "build:clean": "tsc --build --clean",
-    "build:cjs": "tsc",
-    "build:es": "tsc -m esNext --outDir esm",
-    "build": "npm run build:cjs && npm run build:es",
-    "release": "npm run build && node ./bin/cli.js"
+    "build:es": "tsc",
+    "build:watch": "tsc --watch",
+    "build": "npm run build:clean && npm run build:es",
+    "release": "npm run build && node ./lib/cli.js"
   },
   "repository": {
     "type": "git",

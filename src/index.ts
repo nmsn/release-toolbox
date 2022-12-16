@@ -5,9 +5,9 @@ import {
   getNewPackageVersion,
   isValidVersion,
   isBeforeOrSameVersion,
-} from './version';
-import { addDimSuffix, script } from './utils';
-import { getGitBranchList } from './git';
+} from './version.js';
+import { addDimSuffix, script } from './utils.js';
+import { getGitBranchList } from './git.js';
 
 const { branchList, curBranch } = getGitBranchList();
 

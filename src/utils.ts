@@ -1,9 +1,9 @@
 import shell from 'shelljs';
 import chalk from 'chalk';
 
-import { writeNewVersion } from './version';
-import { getGitScript } from './git';
-import { getNpmScript } from './npm';
+import { writeNewVersion } from './version.js';
+import { getGitScript } from './git.js';
+import { getNpmScript } from './npm.js';
 
 export const addDimSuffix = (base: string, suffix: string) => {
   return `${base} 	${chalk.dim.cyan(suffix)}`;
