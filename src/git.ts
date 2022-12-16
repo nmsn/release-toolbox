@@ -5,6 +5,7 @@ export const getGitScript = (newVersion: string, branch: string) => [
   `git commit -m "chore: update version to ${newVersion}"`,
   `git tag ${newVersion}`,
   `git push origin ${branch}`,
+  `git push origin ${newVersion}`,
 ];
 
 export const getGitBranchList = () => {
