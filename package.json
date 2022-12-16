@@ -16,6 +16,7 @@
     "rltb": "/lib/cli.js"
   },
   "scripts": {
+    "prepare": "husky install",
     "build:clean": "tsc --build --clean",
     "build:es": "tsc",
     "build:watch": "tsc --watch",
@@ -44,6 +45,13 @@
     "@types/node": "^18.11.13",
     "@types/semver": "^7.3.13",
     "@types/shelljs": "^0.8.11",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
     "prettier": "^2.8.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4"
