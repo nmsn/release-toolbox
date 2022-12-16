@@ -1,13 +1,13 @@
-import inquirer from "inquirer";
+import inquirer from 'inquirer';
 import {
   version,
   getPackageVersion,
   getNewPackageVersion,
   isValidVersion,
   isBeforeOrSameVersion,
-} from "./version";
-import { addDimSuffix, script } from "./utils";
-import { getGitBranchList } from "./git";
+} from './version';
+import { addDimSuffix, script } from './utils';
+import { getGitBranchList } from './git';
 
 const { branchList, curBranch } = getGitBranchList();
 
@@ -21,9 +21,9 @@ type AnswersType = {
 
 const prompts = [
   {
-    type: "list",
-    name: "selectedVersion",
-    message: "Select semver increment or specify new version",
+    type: 'list',
+    name: 'selectedVersion',
+    message: 'Select semver increment or specify new version',
     pageSize: version.length + 2,
     choices: version
       .map((type) => ({
@@ -33,23 +33,21 @@ const prompts = [
       .concat([
         new inquirer.Separator() as any,
         {
-          name: "Other (specify)",
+          name: 'Other (specify)',
           value: undefined,
         },
       ]),
-    filter: (type: string) =>
-      isValidVersion(type) ? getNewPackageVersion(type) : type,
+    filter: (type: string) => (isValidVersion(type) ? getNewPackageVersion(type) : type),
   },
   {
-    type: "input",
-    name: "inputVersion",
-    message: "Version",
+    type: 'input',
+    name: 'inputVersion',
+    message: 'Version',
     when: (answers: AnswersType) => !answers.selectedVersion,
-    filter: (input: string) =>
-      isValidVersion(input) ? getNewPackageVersion(input) : input,
+    filter: (input: string) => (isValidVersion(input) ? getNewPackageVersion(input) : input),
     validate: (input: string) => {
       if (!isValidVersion(input)) {
-        return "Please specify a valid semver, for example, `1.2.3`. See https://semver.org";
+        return 'Please specify a valid semver, for example, `1.2.3`. See https://semver.org';
       }
 
       if (isBeforeOrSameVersion(input, curVersion)) {
@@ -60,21 +58,19 @@ const prompts = [
     },
   },
   {
-    type: "list",
-    name: "branch",
-    message: "Select git local branch",
+    type: 'list',
+    name: 'branch',
+    message: 'Select git local branch',
     pageSize: branchList.length,
     choices: branchList.map((inc) => ({
-      name: inc === curBranch ? addDimSuffix(inc, "current") : inc,
+      name: inc === curBranch ? addDimSuffix(inc, 'current') : inc,
       value: inc,
     })),
   },
 ];
 
 export default async () => {
-  const { selectedVersion, branch, inputVersion } = await inquirer.prompt(
-    prompts
-  );
+  const { selectedVersion, branch, inputVersion } = await inquirer.prompt(prompts);
   const version = selectedVersion ?? inputVersion;
   script(version, branch);
 };

@@ -1,3 +1,3 @@
-import script from "./index";
+import script from './index';
 
 script();
