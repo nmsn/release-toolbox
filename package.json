@@ -1,6 +1,6 @@
 {
   "name": "release-toolbox",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A push release gui tool.",
   "keywords": ["git", "github", "npm", "inquirer", "gui", "push", "release"],
   "author": "nmsn <1336696700@qq.com>",
