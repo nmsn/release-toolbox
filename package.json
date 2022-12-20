@@ -1,7 +1,7 @@
 {
   "name": "release-toolbox",
   "version": "0.0.4",
-  "description": "",
+  "description": "A push release gui tool.",
   "type": "module",
   "main": "lib/index.js",
   "module": "esm/index.js",
