@@ -1,10 +1,31 @@
 import { Octokit } from '@octokit/core';
 import fs from 'fs';
+import path from 'path';
 
-const json = fs.readFileSync('./release-toolbox.json');
+const hasConfigCurrentDirectory = async (filePath: string) =>
+  await fs.promises
+    .access(filePath)
+    .then(() => true)
+    .catch(() => false);
 
-// TODO Determine whether the parameter exists
-const { GITHUB_TOKEN } = JSON.parse(json.toString());
+const configPath = path.join(process.cwd(), 'release-toolbox.json');
+
+const hasConfig = await hasConfigCurrentDirectory(configPath);
+console.log(hasConfig);
+// const json = fs.readFileSync('./release-toolbox.json');
+
+const json = await import(configPath);
+console.log(json);
+
+const getGithubToken = async () => {
+  const configPath = path.join(process.cwd(), 'release-toolbox.json');
+
+  // TODO check
+  // const hasConfig = await hasConfigCurrentDirectory(configPath);
+
+  const { GITHUB_TOKEN } = await import(configPath);
+  return GITHUB_TOKEN;
+};
 
 // https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release--code-samples
 type GithubReleaseType = {
@@ -28,6 +49,8 @@ export const githubRelease = async ({
   name = tag_name,
   body,
 }: GithubReleaseType) => {
+  const GITHUB_TOKEN = await getGithubToken();
+
   const octokit = new Octokit({
     auth: GITHUB_TOKEN,
   });
