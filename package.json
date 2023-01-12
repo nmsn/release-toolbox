@@ -2,7 +2,15 @@
   "name": "release-toolbox",
   "version": "0.0.5",
   "description": "A push release gui tool.",
-  "keywords": ["git", "github", "npm", "inquirer", "gui", "push", "release"],
+  "keywords": [
+    "git",
+    "github",
+    "npm",
+    "inquirer",
+    "gui",
+    "push",
+    "release"
+  ],
   "author": "nmsn <1336696700@qq.com>",
   "license": "MIT",
   "type": "module",
@@ -35,6 +43,7 @@
   },
   "homepage": "https://github.com/nmsn/release-toolbox#readme",
   "dependencies": {
+    "@octokit/core": "^4.1.0",
     "chalk": "^5.2.0",
     "inquirer": "^9.1.4",
     "semver": "^7.3.8",
