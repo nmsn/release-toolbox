@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import semver from 'semver';
+import { getPackageJson } from './utils.js';
 
 export const version = [
   'patch',
@@ -11,10 +12,6 @@ export const version = [
   'premajor',
   'prerelease',
 ];
-
-export const getPackageJson = () => {
-  return fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8');
-};
 
 export const getPackageVersion = () => {
   const packageJson = getPackageJson();

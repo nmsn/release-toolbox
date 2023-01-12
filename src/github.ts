@@ -1,21 +1,26 @@
 import { Octokit } from '@octokit/core';
-import fs from 'fs';
+// import fs from 'fs';
 import path from 'path';
+import { getPackageJson } from './utils.js';
 
-const hasConfigCurrentDirectory = async (filePath: string) =>
-  await fs.promises
-    .access(filePath)
-    .then(() => true)
-    .catch(() => false);
+const getInfoFromGithubBaseUrl = (url: string) => {
+  const result = url.split('/');
+  return result;
+};
 
-const configPath = path.join(process.cwd(), 'release-toolbox.json');
+export const getCurrentPackageGithubInfo = () => {
+  const packageJson = getPackageJson();
+  const { url } = JSON.parse(packageJson).repository;
+  const [user, fullRepo] = getInfoFromGithubBaseUrl(url).slice(-2);
+  const repo = fullRepo.split('.')[0];
+  return [user, repo];
+};
 
-const hasConfig = await hasConfigCurrentDirectory(configPath);
-console.log(hasConfig);
-// const json = fs.readFileSync('./release-toolbox.json');
-
-const json = await import(configPath);
-console.log(json);
+// const hasConfigCurrentDirectory = async (filePath: string) =>
+//   await fs.promises
+//     .access(filePath)
+//     .then(() => true)
+//     .catch(() => false);
 
 const getGithubToken = async () => {
   const configPath = path.join(process.cwd(), 'release-toolbox.json');
