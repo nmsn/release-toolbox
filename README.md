@@ -15,5 +15,10 @@ A script to push code to npm/github and add tags.
 ## TODO
 
 - [ ] catch err
-- [ ] code quality: eslint/prettier/typescript
-- [ ] github release
+- [ ] loading animation
+- [ ] release template
+
+## Finish
+
+- [x] code quality: eslint/prettier/typescript
+- [x] github release
