@@ -1,3 +1,3 @@
-import script from './index.js';
+import cli from './index.js';
 
-script();
+cli();

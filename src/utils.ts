@@ -6,6 +6,7 @@ import chalk from 'chalk';
 import { writeNewVersion } from './version.js';
 import { getGitScript } from './git.js';
 import { getNpmScript } from './npm.js';
+import { githubRelease } from './github.js';
 
 export const getPackageJson = () => {
   return fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8');
@@ -25,10 +26,17 @@ const execShell = async (scripts: string[]) => {
   }
 };
 
-export const script = (newVersion: string, branch = 'main') => {
-  writeNewVersion(newVersion, (version) => {
-    const allScript = [...getGitScript(version, branch), ...getNpmScript()];
-
-    execShell(allScript);
-  });
+export const script = ({
+  newVersion,
+  branch = 'main',
+  body,
+}: {
+  newVersion: string;
+  branch: string;
+  body: string;
+}) => {
+  writeNewVersion(newVersion);
+  const allScript = [...getGitScript(newVersion, branch), ...getNpmScript()];
+  execShell(allScript);
+  githubRelease(newVersion, body);
 };

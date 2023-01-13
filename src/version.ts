@@ -29,7 +29,7 @@ export const getNewPackageVersion = (input) => {
 };
 
 // TODO gui to select version
-export const writeNewVersion = (newVersion: string, callback?: (newVersion: string) => void) => {
+export const writeNewVersion = (newVersion: string) => {
   const packageJson = getPackageJson();
   const projectVersion = getPackageVersion();
 
@@ -39,7 +39,6 @@ export const writeNewVersion = (newVersion: string, callback?: (newVersion: stri
   );
 
   fs.writeFileSync(path.resolve(process.cwd(), 'package.json'), newPackageJson);
-  callback?.(newVersion);
 };
 
 export const isValidVersion = (input: string) => {

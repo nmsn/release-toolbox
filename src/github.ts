@@ -8,12 +8,12 @@ const getInfoFromGithubBaseUrl = (url: string) => {
   return result;
 };
 
-export const getCurrentPackageGithubInfo = () => {
+const getCurrentPackageGithubInfo = () => {
   const packageJson = getPackageJson();
   const { url } = JSON.parse(packageJson).repository;
-  const [user, fullRepo] = getInfoFromGithubBaseUrl(url).slice(-2);
+  const [owner, fullRepo] = getInfoFromGithubBaseUrl(url).slice(-2);
   const repo = fullRepo.split('.')[0];
-  return [user, repo];
+  return [owner, repo];
 };
 
 // const hasConfigCurrentDirectory = async (filePath: string) =>
@@ -37,9 +37,11 @@ type GithubReleaseType = {
   owner: string;
   repo: string;
   tag_name: string;
+  /** branch or SHA */
   target_commitish?: string;
   name?: string;
   body?: string;
+  /** true to create a draft(unpublished) release */
   draft?: boolean;
   prerelease?: boolean;
   discussion_category_name?: string;
@@ -47,7 +49,7 @@ type GithubReleaseType = {
   make_latest?: string;
 };
 
-export const githubRelease = async ({
+const octokitRelease = async ({
   owner,
   repo,
   tag_name,
@@ -65,6 +67,16 @@ export const githubRelease = async ({
     repo,
     tag_name,
     name,
+    body,
+  });
+};
+
+export const githubRelease = (newVersion: string, body?: string) => {
+  const [owner, repo] = getCurrentPackageGithubInfo();
+  octokitRelease({
+    owner: owner,
+    repo,
+    tag_name: newVersion,
     body,
   });
 };

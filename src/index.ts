@@ -17,6 +17,7 @@ type AnswersType = {
   selectedVersion: string;
   inputVersion: string;
   branch: string;
+  releaseBody: string;
 };
 
 const prompts = [
@@ -67,10 +68,15 @@ const prompts = [
       value: inc,
     })),
   },
+  {
+    type: 'editor',
+    name: 'releaseBody',
+    message: 'Description of the release',
+  },
 ];
 
 export default async () => {
-  const { selectedVersion, branch, inputVersion } = await inquirer.prompt(prompts);
+  const { selectedVersion, branch, inputVersion, releaseBody } = await inquirer.prompt(prompts);
   const version = selectedVersion ?? inputVersion;
-  script(version, branch);
+  script({ newVersion: version, branch, body: releaseBody });
 };
