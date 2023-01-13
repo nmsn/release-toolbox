@@ -28,7 +28,12 @@ const getGithubToken = async () => {
   // TODO check
   // const hasConfig = await hasConfigCurrentDirectory(configPath);
 
-  const { GITHUB_TOKEN } = await import(configPath);
+  // import json is experimental
+  const {
+    default: { GITHUB_TOKEN },
+  } = await import(configPath, {
+    assert: { type: 'json' },
+  });
   return GITHUB_TOKEN;
 };
 
