@@ -36,7 +36,7 @@ export const script = ({
   body: string;
 }) => {
   writeNewVersion(newVersion);
-  const allScript = [...getGitScript(newVersion, branch), ...getNpmScript()];
-  execShell(allScript);
+  execShell(getGitScript(newVersion, branch));
+  execShell(getNpmScript());
   githubRelease(newVersion, body);
 };
