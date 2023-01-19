@@ -17,6 +17,7 @@ A script to push code to npm/github and add tags.
 - [ ] catch err
 - [ ] loading animation
 - [ ] release template
+- [ ] check config in advance
 
 ## Finish
 
