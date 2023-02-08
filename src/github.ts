@@ -17,7 +17,7 @@ const getCurrentPackageGithubInfo = () => {
 };
 
 export const getGithubToken = () => {
-  const configPath = path.join(process.cwd(), 'release-toolbox2.json');
+  const configPath = path.join(process.cwd(), 'release-toolbox.json');
 
   try {
     const { GITHUB_TOKEN } = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
