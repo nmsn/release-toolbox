@@ -8,16 +8,23 @@ import {
 } from './version.js';
 import { addDimSuffix, script } from './utils.js';
 import { getGitBranchList } from './git.js';
+import { getGithubToken } from './github.js';
 
 const { branchList, curBranch } = getGitBranchList();
 
 const curVersion = getPackageVersion();
 
-type AnswersType = {
+enum TargetEnumType {
+  NPM = 'npm',
+  GITHUB = 'github',
+}
+
+export type AnswersType = {
   selectedVersion: string;
   inputVersion: string;
   branch: string;
   releaseBody: string;
+  target: TargetEnumType[keyof TargetEnumType][];
 };
 
 const prompts = [
@@ -69,14 +76,33 @@ const prompts = [
     })),
   },
   {
+    type: 'checkbox',
+    name: 'target',
+    message: 'Select target platform to push.',
+    choices: ['npm', 'github'].map((item) => ({
+      name: item,
+      value: item,
+    })),
+    validate: (input: AnswersType['target']) => {
+      if (input.includes('github') && !getGithubToken()) {
+        return 'No valid "GITHUB_TOKEN" in release-toolbox.json, please add it.';
+      }
+
+      return true;
+    },
+  },
+  {
     type: 'editor',
     name: 'releaseBody',
-    message: 'Description of the release',
+    when: (answers: AnswersType) => answers.target.includes('github'),
+    message: 'Description of the release.',
   },
 ];
 
 export default async () => {
-  const { selectedVersion, branch, inputVersion, releaseBody } = await inquirer.prompt(prompts);
+  const { selectedVersion, branch, inputVersion, releaseBody, target } = await inquirer.prompt(
+    prompts
+  );
   const version = selectedVersion ?? inputVersion;
-  script({ newVersion: version, branch, body: releaseBody });
+  script({ version, branch, releaseBody, target });
 };

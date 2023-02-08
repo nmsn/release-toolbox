@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import shell from 'shelljs';
 import chalk from 'chalk';
-
+import type { AnswersType } from './index.js';
 import { writeNewVersion } from './version.js';
 import { getGitScript } from './git.js';
 import { getNpmScript } from './npm.js';
@@ -26,17 +26,16 @@ const execShell = async (scripts: string[]) => {
   }
 };
 
-export const script = ({
-  newVersion,
+export const script = async ({
+  version,
   branch = 'main',
-  body,
-}: {
-  newVersion: string;
-  branch: string;
-  body: string;
+  releaseBody,
+  target,
+}: Omit<AnswersType, 'selectedVersion' | 'inputVersion'> & {
+  version: AnswersType['selectedVersion'] | string;
 }) => {
-  writeNewVersion(newVersion);
-  execShell(getGitScript(newVersion, branch));
-  execShell(getNpmScript());
-  githubRelease(newVersion, body);
+  writeNewVersion(version);
+  execShell(getGitScript(version, branch));
+  target.includes('npm') && execShell(getNpmScript());
+  target.includes('github') && githubRelease(version, releaseBody);
 };
