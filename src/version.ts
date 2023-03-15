@@ -18,8 +18,8 @@ export const getPackageVersion = () => {
   return JSON.parse(packageJson).version;
 };
 
+/** eg: 1.0.0 -> 1.1.0 */
 export const getNewPackageVersion = (input) => {
-  validate(input);
   if (version.includes(input)) {
     const projectVersion = getPackageVersion();
     return semver.inc(projectVersion, input);
@@ -41,16 +41,18 @@ export const writeNewVersion = (newVersion: string) => {
   fs.writeFileSync(path.resolve(process.cwd(), 'package.json'), newPackageJson);
 };
 
-export const isValidVersion = (input: string) => {
-  return !!semver.valid(input) || version.includes(input);
+export const isValidVersionNumber = (input: string) => {
+  return !!semver.valid(input);
 };
 
-const validate = (input: string) => {
-  if (!isValidVersion(input)) {
-    throw new Error('Version should be a valid semver version.');
-  }
+export const isValidVersion = (input: string) => {
+  return isValidVersionNumber(input) || version.includes(input);
 };
 
 export const isBeforeOrSameVersion = (newVersion: string, oldVersion: string) => {
   return semver.lte(newVersion, oldVersion);
+};
+
+export const isAfterVersion = (newVersion: string, oldVersion: string) => {
+  return semver.gt(newVersion, oldVersion);
 };
