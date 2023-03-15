@@ -6,7 +6,7 @@ import {
   isValidVersion,
   isBeforeOrSameVersion,
 } from './version.js';
-import { addDimSuffix, script } from './utils.js';
+import { addDimSuffix, script, colorVersion } from './utils.js';
 import { getGitBranchList } from './git.js';
 import { getGithubToken } from './github.js';
 
@@ -32,7 +32,7 @@ const prompts = [
     type: 'list',
     name: 'selectedVersion',
     message: 'Select semver increment or specify new version',
-    pageSize: version.length + 2,
+    pageSize: version.length + 3,
     choices: version
       .map((type) => ({
         name: addDimSuffix(type, getNewPackageVersion(type)),
@@ -44,15 +44,19 @@ const prompts = [
           name: 'Other (specify)',
           value: undefined,
         },
+        {
+          name: `Just use current version: ${colorVersion(curVersion)}`,
+          value: curVersion,
+        },
       ]),
-    filter: (type: string) => (isValidVersion(type) ? getNewPackageVersion(type) : type),
+    filter: (input: string) => (isValidVersion(input) ? getNewPackageVersion(input) : undefined),
   },
   {
     type: 'input',
     name: 'inputVersion',
-    message: 'Version',
+    message: 'Input version',
     when: (answers: AnswersType) => !answers.selectedVersion,
-    filter: (input: string) => (isValidVersion(input) ? getNewPackageVersion(input) : input),
+    filter: (input: string) => (isValidVersion(input) ? getNewPackageVersion(input) : undefined),
     validate: (input: string) => {
       if (!isValidVersion(input)) {
         return 'Please specify a valid semver, for example, `1.2.3`. See https://semver.org';
