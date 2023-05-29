@@ -43,27 +43,27 @@
   },
   "homepage": "https://github.com/nmsn/release-toolbox#readme",
   "dependencies": {
-    "@octokit/core": "^4.2.0",
+    "@octokit/core": "^4.2.1",
     "chalk": "^5.2.0",
-    "inquirer": "^9.1.4",
-    "semver": "^7.3.8",
+    "inquirer": "^9.2.6",
+    "semver": "^7.5.1",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
-    "@types/node": "^20.1.0",
-    "@types/semver": "^7.3.13",
-    "@types/shelljs": "^0.8.11",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
-    "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
+    "@types/node": "^20.2.5",
+    "@types/semver": "^7.5.0",
+    "@types/shelljs": "^0.8.12",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.4",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.3"
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "tslib": "^2.5.2",
+    "typescript": "^5.0.4"
   },
   "engines": {
     "node": ">=16"
