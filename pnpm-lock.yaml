@@ -3,7 +3,7 @@ lockfileVersion: '6.0'
 dependencies:
   '@octokit/core':
     specifier: ^4.2.1
-    version: 4.2.1
+    version: 4.2.4
   chalk:
     specifier: ^5.2.0
     version: 5.2.0
@@ -148,8 +148,8 @@ packages:
       '@octokit/types': 8.1.0
     dev: false
 
-  /@octokit/core@4.2.1:
-    resolution: {integrity: sha512-tEDxFx8E38zF3gT7sSMDrT1tGumDgsw5yPG6BBh/X+5ClIQfMH/Yqocxz1PnHx6CHyF6pxmovUTOfZAUvQ0Lvw==}
+  /@octokit/core@4.2.4:
+    resolution: {integrity: sha512-rYKilwgzQ7/imScn3M9/pFfUf4I1AZEH3KhyJmtPdE2zfaXAn2mFfUy4FbKewzc2We5y/LlKLj36fWJLKC2SIQ==}
     engines: {node: '>= 14'}
     dependencies:
       '@octokit/auth-token': 3.0.2
