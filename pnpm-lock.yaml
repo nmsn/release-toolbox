@@ -30,7 +30,7 @@ devDependencies:
     version: 20.5.9
   '@types/semver':
     specifier: ^7.5.0
-    version: 7.5.1
+    version: 7.5.2
   '@types/shelljs':
     specifier: ^0.8.12
     version: 0.8.12
@@ -264,8 +264,8 @@ packages:
     resolution: {integrity: sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==}
     dev: true
 
-  /@types/semver@7.5.1:
-    resolution: {integrity: sha512-cJRQXpObxfNKkFAZbJl2yjWtJCqELQIdShsogr1d2MilP8dKD9TE/nEKHkJgUNHdGKCQaf9HbIynuV2csLGVLg==}
+  /@types/semver@7.5.2:
+    resolution: {integrity: sha512-7aqorHYgdNO4DM36stTiGO3DvKoex9TQRwsJU6vMaFGyqpBA1MNZkz+PG3gaNUPpTAOYhT1WR7M1JyA3fbS9Cw==}
     dev: true
 
   /@types/shelljs@0.8.12:
@@ -391,7 +391,7 @@ packages:
     dependencies:
       '@eslint-community/eslint-utils': 4.2.0(eslint@8.48.0)
       '@types/json-schema': 7.0.11
-      '@types/semver': 7.5.1
+      '@types/semver': 7.5.2
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.2.2)
