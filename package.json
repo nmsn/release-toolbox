@@ -44,26 +44,26 @@
   "homepage": "https://github.com/nmsn/release-toolbox#readme",
   "dependencies": {
     "@octokit/core": "^5.0.0",
-    "chalk": "^5.2.0",
-    "inquirer": "^9.2.6",
-    "semver": "^7.5.1",
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.11",
+    "semver": "^7.5.4",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
-    "@types/node": "^20.2.5",
-    "@types/semver": "^7.5.0",
+    "@types/node": "^20.6.2",
+    "@types/semver": "^7.5.2",
     "@types/shelljs": "^0.8.12",
-    "@typescript-eslint/eslint-plugin": "^5.59.8",
-    "@typescript-eslint/parser": "^5.59.8",
-    "eslint": "^8.41.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "^8.0.3",
-    "lint-staged": "^14.0.0",
-    "prettier": "^3.0.0",
-    "tslib": "^2.5.2",
-    "typescript": "^5.0.4"
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
   },
   "engines": {
     "node": ">=16"
